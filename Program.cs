@@ -1,47 +1,91 @@
-﻿class Programm
+﻿class Program
 {
     static async Task Main()
     {
-        Ork ork = new Ork("Ork", 200, 300, 40, 60);
-        Console.WriteLine(ork.HaveArmor);
+        Console.Title = "Dungeon System Demo";
 
-        var allItems = new Dictionary<int, Item>();
-        allItems.Add(1, new Potion("Зелье лечения", 50, 100));
-        allItems.Add(2, new Scroll("Древний свиток", 10, 300));
-        allItems.Add(3, new Sword("Обычный меч", 60, 30));
-        allItems.Add(4, new Arch("Драконий лук", 80, 1000));
-        allItems.Add(5, new Key("Ключ от дома", 2, 10));
+        await DemonstrateDungeonLoading();
 
-        Shop shop = new Shop(allItems);
+        DemonstrateCharacters();
 
-        Player player = new Player("Семён", 40, 100, 300, 1500, 120);
-        Goblin goblin = new Goblin("Гоблин", 30, 150, 25);
-        Dragon dragon = new Dragon("Дракон", 300, 300, 20);
+        DemonstrateInventory();
 
-        player.AllPrice();
-        CycleFight.Fight(goblin, "обычный удар", dragon, "Огенный урон");
+        DemonstrateShop();
 
-        CycleFight.TypeOfDamageWrestlerOne += (string typeOfStrike) =>
-        {
-            return typeOfStrike;
-        };
-        CycleFight.TypeOfDamageWrestlerTwo += (string typeOfStrike) =>
-        {
-            return typeOfStrike;
-        };
+        DemonstrateBattle();
 
-        player.AddItem(allItems[2]);
+        Console.WriteLine();
+        Console.WriteLine("=== Демонстрация завершена ===");
+    }
 
-        player.BuyItem("Древний свиток");
-        player.BuyItem("Драконий лук");
-        player.BuyItem("Драконий лук");
-        player.ShowItems();
-        Console.WriteLine(player.Gold);
-        player.SaleItem("Драконий лук");
-        player.ShowItems();
-        Console.WriteLine(player.Gold);
+    static async Task DemonstrateDungeonLoading()
+    {
+        Console.WriteLine("=== Загрузка подземелья ===");
+
         Dungeon dungeon = new Dungeon();
-
         await dungeon.LoadDungeon();
+
+        Console.WriteLine();
+    }
+
+    static void DemonstrateCharacters()
+    {
+        Console.WriteLine("=== Персонажи ===");
+
+        Dragon dragon = new Dragon("Дракон", 300, 300, 40);
+        Goblin goblin = new Goblin("Гоблин", 100, 100, 15);
+        Ork ork = new Ork("Орк", 200, 200, 30, 50);
+
+        dragon.Fly();
+        goblin.StealingGold();
+
+        Console.WriteLine($"Броня орка: {ork.HaveArmor}");
+        Console.WriteLine();
+    }
+
+    static void DemonstrateInventory()
+    {
+        Console.WriteLine("=== Инвентарь ===");
+
+        Player player = new Player("Семён", 100, 100, 30, 1500, 120);
+
+        player.AddItem(new Sword("Стальной меч", 30, 300));
+        player.AddItem(new Potion("Зелье лечения", 10, 100));
+        player.AddItem(new Scroll("Свиток огня", 5, 500));
+
+        player.ShowItems();
+
+        Console.WriteLine();
+    }
+
+    static void DemonstrateShop()
+    {
+        Console.WriteLine("=== Магазин ===");
+
+        Dictionary<int, Item> items = new()
+        {
+            { 1, new Sword("Меч", 40, 300) },
+            { 2, new Potion("Зелье", 10, 100) },
+            { 3, new Scroll("Свиток", 5, 500) },
+        };
+
+        Shop shop = new Shop(items);
+
+        Shop.ShowAssortment();
+
+        Console.WriteLine();
+    }
+
+    static void DemonstrateBattle()
+    {
+        Console.WriteLine("=== Бой ===");
+
+        CycleFight.TypeOfDamageWrestlerOne += type => type;
+        CycleFight.TypeOfDamageWrestlerTwo += type => type;
+
+        Goblin goblin = new Goblin("Гоблин", 100, 100, 20);
+        Dragon dragon = new Dragon("Дракон", 250, 250, 35);
+
+        CycleFight.Fight(goblin, "обычным ударом", dragon, "огненным дыханием");
     }
 }
