@@ -13,3 +13,7 @@
 /home/vaah/Рабочий стол/Learning C#/obj/Debug/net8.0/Learning C#.genruntimeconfig.cache
 /home/vaah/Рабочий стол/Learning C#/obj/Debug/net8.0/ref/Learning C#.dll
 /home/vaah/Рабочий стол/Learning C#/obj/Debug/net8.0/Learning C#.sourcelink.json
+/home/vaah/Рабочий стол/Learning C#/bin/Debug/net8.0/Spectre.Console.dll
+/home/vaah/Рабочий стол/Learning C#/bin/Debug/net8.0/Spectre.Console.Ansi.dll
+/home/vaah/Рабочий стол/Learning C#/obj/Debug/net8.0/Learning C#.csproj.AssemblyReference.cache
+/home/vaah/Рабочий стол/Learning C#/obj/Debug/net8.0/Learning C#.csproj.CopyComplete

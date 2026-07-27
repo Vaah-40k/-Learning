@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "rzPDmcdjvJ9JEbyI0vsnQwJ/lZOEX5iTvNWoBheg7esIxVEIsDuX1oYtwLWbSEFt8KINxYTAB7OSimKXApWonA==",
+  "dgSpecHash": "Yxm8jWC1NYa1eHYvqutzp1DJdp5aib1v7bJbSWiuTJDgliAtzr5kQXkVvMdMtEALOFP0ohjlEzH8EFpSaPMo6g==",
   "success": true,
   "projectFilePath": "/home/vaah/Рабочий стол/Learning C#/Learning C#.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/vaah/.nuget/packages/spectre.console/0.57.2/spectre.console.0.57.2.nupkg.sha512",
+    "/home/vaah/.nuget/packages/spectre.console.ansi/0.57.2/spectre.console.ansi.0.57.2.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1,69 +1,47 @@
-﻿class Program
+﻿class Programm
 {
     static async Task Main()
     {
-        // await WaitTreeSeconds();
-        // Console.WriteLine(await RollDice());
-        // await Task.WhenAll(LoadWorld(), LoadPlayer());
+        Ork ork = new Ork("Ork", 200, 300, 40, 60);
+        Console.WriteLine(ork.HaveArmor);
 
-        //  await Task.WhenAny(DownloadMusic(), DownloadMap(), DownloadTexture());
-        await Task.WhenAll(LoadPlayer(), LoadWorld(), LoadSetting());
-        Console.WriteLine("Первый файл загружен!");
-    }
+        var allItems = new Dictionary<int, Item>();
+        allItems.Add(1, new Potion("Зелье лечения", 50, 100));
+        allItems.Add(2, new Scroll("Древний свиток", 10, 300));
+        allItems.Add(3, new Sword("Обычный меч", 60, 30));
+        allItems.Add(4, new Arch("Драконий лук", 80, 1000));
+        allItems.Add(5, new Key("Ключ от дома", 2, 10));
 
-    static async Task WaitTreeSeconds()
-    {
-        Console.WriteLine("Ждём...");
-        await Task.Delay(3000);
-        Console.WriteLine("Готово");
-    }
+        Shop shop = new Shop(allItems);
 
-    static async Task<int> RollDice()
-    {
-        await Task.Delay(1000);
-        Random rnd = new Random();
-        int num = rnd.Next(7);
-        return num;
-    }
+        Player player = new Player("Семён", 40, 100, 300, 1500, 120);
+        Goblin goblin = new Goblin("Гоблин", 30, 150, 25);
+        Dragon dragon = new Dragon("Дракон", 300, 300, 20);
 
-    static async Task LoadPlayer()
-    {
-        Console.WriteLine("Ждём 4 секунды");
-        await Task.Delay(4000);
-    }
+        player.AllPrice();
+        CycleFight.Fight(goblin, "обычный удар", dragon, "Огенный урон");
 
-    static async Task LoadWorld()
-    {
-        Console.WriteLine("Ждём 2 секунды");
+        CycleFight.TypeOfDamageWrestlerOne += (string typeOfStrike) =>
+        {
+            return typeOfStrike;
+        };
+        CycleFight.TypeOfDamageWrestlerTwo += (string typeOfStrike) =>
+        {
+            return typeOfStrike;
+        };
 
-        await Task.Delay(2000);
-    }
+        player.AddItem(allItems[2]);
 
-    static async Task LoadSetting()
-    {
-        Console.WriteLine("Ждём 1 секунду");
+        player.BuyItem("Древний свиток");
+        player.BuyItem("Драконий лук");
+        player.BuyItem("Драконий лук");
+        player.ShowItems();
+        Console.WriteLine(player.Gold);
+        player.SaleItem("Драконий лук");
+        player.ShowItems();
+        Console.WriteLine(player.Gold);
+        Dungeon dungeon = new Dungeon();
 
-        await Task.Delay(1000);
-    }
-
-    static async Task DownloadTexture()
-    {
-        Console.WriteLine("Ждём 2 секунды");
-
-        await Task.Delay(2000);
-    }
-
-    static async Task DownloadMusic()
-    {
-        Console.WriteLine("Ждём 5 секунды");
-
-        await Task.Delay(5000);
-    }
-
-    static async Task DownloadMap()
-    {
-        Console.WriteLine("Ждём 3 секунды");
-
-        await Task.Delay(3000);
+        await dungeon.LoadDungeon();
     }
 }
